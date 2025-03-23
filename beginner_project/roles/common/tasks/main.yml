@@ -1,0 +1,12 @@
+- name: Update apt package index for ubuntu
+  become: yes
+  apt:
+    update_cache: true
+  when: ansible_facts['os_family'] == 'Debian'
+
+
+- name: Update yum package index for redhat
+  become: yes
+  yum:
+    update_cache: true
+  when: ansible_facts['os_family'] == 'RedHat'

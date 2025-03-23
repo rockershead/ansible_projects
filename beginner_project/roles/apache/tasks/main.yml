@@ -1,0 +1,31 @@
+- name: Install Apache for ubuntu
+  apt:
+    name: apache2
+    state: present
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install httpd for redhat
+  yum:
+    name: httpd
+    state: present
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: Ensure Apache is running and enabled for ubuntu machines
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Ensure httpd is running and enabled for redhat machines
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: Copy file with owner and permissions
+  copy:
+    src: ./files/index.html
+    dest: /var/www/html/index.html
+    owner: root

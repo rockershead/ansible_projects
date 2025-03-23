@@ -1,0 +1,5 @@
+- hosts: redhat
+  become: yes
+  roles:
+    - common
+    - apache
