@@ -1,0 +1,8 @@
+- name: Restarting docker services
+  shell: sudo docker restart {{container_name}}
+  register: _out
+
+
+- name: Print Docker Operation
+  debug:
+    msg: "{{_out.stdout_lines}}"

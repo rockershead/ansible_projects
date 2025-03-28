@@ -1,0 +1,9 @@
+- hosts: dc
+  become: yes
+  vars:
+    container_name: simple-react-app
+  roles:
+    - role: docker_services
+      vars:
+        docker_action: 'stop'
+    
