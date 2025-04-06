@@ -24,7 +24,7 @@
   roles:
     - role: docker_services
       vars:
-        docker_action: 'stop'
+        docker_action: 'start'
 
   post_tasks:
     - name: Remove SSH private key from /tmp

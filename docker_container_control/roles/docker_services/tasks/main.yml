@@ -1,5 +1,5 @@
 - name: Include action  tasks
-  include_tasks: ../roles/docker_services/tasks/{{docker_action}}.yml
+  include_tasks: "{{docker_action}}.yml"
   
 
 
