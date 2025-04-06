@@ -3,10 +3,10 @@ I have put 2 environments for the inventory.One is integration and the other is 
 format to put the ssh key before encrypting:
 
 - ssh_private_key: |
-  -----BEGIN RSA PRIVATE KEY-----
-  ''
-  ''
-  -----END RSA PRIVATE KEY-----
+  - -----BEGIN RSA PRIVATE KEY-----
+  - ''
+  - ''
+  - -----END RSA PRIVATE KEY-----
 
 command to encrypt:
 - ansible-vault encrypt secret.yaml
