@@ -1,9 +1,36 @@
 - hosts: dc
   become: yes
+  gather_facts: false
+  pre_tasks:
+    - name: Decrypt SSH private key from vault
+      set_fact:
+        ssh_private_key: "{{ lookup('file', '../secrets.yaml') }}"
+
+    - name: Write key to /tmp
+      become: false
+      copy:
+        content: "{{ ssh_private_key }}"
+        dest: /tmp/id_rsa_ansible
+        mode: '0600'
+      delegate_to: localhost
+      run_once: true
+
+    
   vars:
+    ansible_ssh_private_key_file: /tmp/id_rsa_ansible
     container_name: simple-react-app
+
+    
   roles:
     - role: docker_services
       vars:
         docker_action: 'stop'
+
+  post_tasks:
+    - name: Remove SSH private key from /tmp
+      file:
+        path: /tmp/id_rsa_ansible
+        state: absent
+      delegate_to: localhost
+      run_once: true
     

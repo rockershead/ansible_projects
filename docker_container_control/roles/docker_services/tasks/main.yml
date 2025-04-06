@@ -1,11 +1,6 @@
-- name: Include start tasks
+- name: Include action  tasks
   include_tasks: ../roles/docker_services/tasks/{{docker_action}}.yml
   
 
-- name: Include stop tasks
-  include_tasks: ../roles/docker_services/tasks/{{docker_action}}.yml
-  
 
-- name: Include restart tasks
-  include_tasks: ../roles/docker_services/tasks/{{docker_action}}.yml
   
