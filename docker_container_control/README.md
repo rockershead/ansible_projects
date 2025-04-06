@@ -1,3 +1,5 @@
+I have put 2 environments for the inventory.One is integration and the other is pre-prod. There are group_vars and secret.yaml(ssh_key) associated for the different machines.
+
 format to put the ssh key before encrypting:
 
 - ssh_private_key: |
