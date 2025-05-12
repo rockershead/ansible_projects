@@ -1,0 +1,15 @@
+ ##os_name
+- name: Get OS name
+  shell: "cat /etc/os-release | grep '^NAME=' | cut -d '=' -f 2 | tr -d '\"'"
+  register: os_name
+
+##os_version
+- name: Get OS version information
+  shell: "cat /etc/os-release | grep '^VERSION=' | cut -d '=' -f 2 | tr -d '\"'"
+  register: os_version
+
+#ip address of vm
+- name: Get IP address of enX0 interface
+  shell: "ip a show enX0 | grep -w inet | awk '{print $2}' | cut -d '/' -f 1"
+  register: ip_address
+

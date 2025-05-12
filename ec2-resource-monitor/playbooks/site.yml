@@ -1,0 +1,49 @@
+- hosts: dc
+  gather_facts: false
+  pre_tasks:
+    - name: Write key to /tmp
+      become: false
+      copy:
+        content: "{{ ssh_private_key }}"
+        dest: /tmp/id_rsa_ansible
+        mode: '0600'
+      delegate_to: localhost
+      run_once: true
+  vars:
+    ansible_ssh_private_key_file: /tmp/id_rsa_ansible
+    
+
+  roles:
+    - cpu_and_memory
+    - os_and_ip_network
+      
+
+  post_tasks:
+    - name: Aggregate outputs
+      set_fact:
+        csv_content: |
+          OS Version,{{ os_version.stdout }}
+          OS Name,{{ os_name.stdout }}
+          IP Address,{{ ip_address.stdout }}
+          Number of vCPUs,{{ vcpu_output.stdout }}
+          Free Memory,{{ free_output.stdout }}
+          Disk Space,{{ disk_output.stdout }}
+
+    - name: Aggregate outputs to csv
+      copy:
+        content: "{{ csv_content }}"
+        dest: /tmp/system_info.csv
+        mode: '0644'
+      delegate_to: localhost
+      
+
+    - name: Remove SSH private key from /tmp
+      become: false
+      file:
+        path: /tmp/id_rsa_ansible
+        state: absent
+      delegate_to: localhost
+      run_once: true
+
+  
+    

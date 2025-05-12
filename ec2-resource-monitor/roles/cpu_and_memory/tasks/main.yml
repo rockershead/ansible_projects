@@ -1,0 +1,17 @@
+##cpu_count
+- name: Get the number of vCPUs using shell
+  shell: "lscpu | grep -E '^CPU\\(s\\):' | awk '{print $2}'"
+  register: vcpu_output
+
+##free_memory
+- name: Retrieve info on amount of free memory
+  shell: "free -h | grep -E '^Mem:' | awk '{print $4}'"
+  register: free_output
+
+##disk space
+- name: Get the amount of free disk space
+  shell: "df -h / | grep -E '^/' | awk '{print $4}'"
+  register: disk_output
+
+
+
